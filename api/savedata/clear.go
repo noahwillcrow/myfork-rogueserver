@@ -19,9 +19,10 @@ package savedata
 
 import (
 	"fmt"
-	"github.com/pagefaultgames/rogueserver/db"
-	"github.com/pagefaultgames/rogueserver/defs"
 	"log"
+
+	"github.com/noahwillcrow/myfork-rogueserver/db"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 type ClearResponse struct {

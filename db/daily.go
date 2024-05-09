@@ -20,7 +20,7 @@ package db
 import (
 	"math"
 
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 func TryAddDailyRun(seed string) error {

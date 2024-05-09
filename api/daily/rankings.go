@@ -20,8 +20,8 @@ package daily
 import (
 	"log"
 
-	"github.com/pagefaultgames/rogueserver/db"
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/db"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 // /daily/rankings - fetch daily rankings

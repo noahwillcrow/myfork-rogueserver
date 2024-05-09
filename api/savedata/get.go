@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/pagefaultgames/rogueserver/db"
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/db"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 // /savedata/get - get save data

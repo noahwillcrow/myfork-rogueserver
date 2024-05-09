@@ -25,8 +25,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/pagefaultgames/rogueserver/api"
-	"github.com/pagefaultgames/rogueserver/db"
+	"github.com/noahwillcrow/myfork-rogueserver/api"
+	"github.com/noahwillcrow/myfork-rogueserver/db"
 )
 
 func main() {

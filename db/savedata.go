@@ -21,7 +21,7 @@ import (
 	"bytes"
 	"encoding/gob"
 
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 func TryAddDailyRunCompletion(uuid []byte, seed string, mode int) (bool, error) {

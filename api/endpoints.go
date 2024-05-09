@@ -23,11 +23,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/pagefaultgames/rogueserver/api/account"
-	"github.com/pagefaultgames/rogueserver/api/daily"
-	"github.com/pagefaultgames/rogueserver/api/savedata"
-	"github.com/pagefaultgames/rogueserver/db"
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/api/account"
+	"github.com/noahwillcrow/myfork-rogueserver/api/daily"
+	"github.com/noahwillcrow/myfork-rogueserver/api/savedata"
+	"github.com/noahwillcrow/myfork-rogueserver/db"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 /*

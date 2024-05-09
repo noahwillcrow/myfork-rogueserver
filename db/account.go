@@ -22,7 +22,7 @@ import (
 	"slices"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 func AddAccountRecord(uuid []byte, username string, key, salt []byte) error {

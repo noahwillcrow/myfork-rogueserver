@@ -25,7 +25,7 @@ import (
 	"strconv"
 
 	"github.com/klauspost/compress/zstd"
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 func LegacyReadSystemSaveData(uuid []byte) (defs.SystemSaveData, error) {

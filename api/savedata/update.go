@@ -23,8 +23,8 @@ import (
 	"strconv"
 
 	"github.com/klauspost/compress/zstd"
-	"github.com/pagefaultgames/rogueserver/db"
-	"github.com/pagefaultgames/rogueserver/defs"
+	"github.com/noahwillcrow/myfork-rogueserver/db"
+	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
 var zstdEncoder, _ = zstd.NewWriter(nil)
