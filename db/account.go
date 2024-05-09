@@ -107,7 +107,7 @@ func PrepareAccountTables() error {
     return nil
 }
 
-func AddAccountRecord(uuid []byte, username string, key, salt []byte) error {
+func AddAccountRecord(uuid []byte, username string, key []byte, salt []byte) error {
 	_, err := handle.Exec("INSERT INTO accounts (uuid, username, hash, salt, registered) VALUES (?, ?, ?, ?, UTC_TIMESTAMP())", uuid, username, key, salt)
 	if err != nil {
 		return err
