@@ -23,6 +23,45 @@ import (
 	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
+func PrepareDailyTables() error {
+    tx, err := handle.Begin()
+    if err != nil {
+        return err
+    }
+
+    // Create dailyRuns table
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS dailyRuns (
+        seed VARCHAR(255) PRIMARY KEY,
+        date DATE NOT NULL
+    )`)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    // Create accountDailyRuns table
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS accountDailyRuns (
+        uuid BINARY(16),
+        date DATE NOT NULL,
+        score INT NOT NULL,
+        wave INT NOT NULL,
+        timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (uuid, date),
+        FOREIGN KEY (uuid) REFERENCES accounts(uuid) ON DELETE CASCADE
+    )`)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    err = tx.Commit()
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func TryAddDailyRun(seed string) error {
 	_, err := handle.Exec("INSERT INTO dailyRuns (seed, date) VALUES (?, UTC_DATE()) ON DUPLICATE KEY UPDATE date = date", seed)
 	if err != nil {

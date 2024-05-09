@@ -25,6 +25,88 @@ import (
 	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
+func PrepareAccountTables() error {
+    tx, err := handle.Begin()
+    if err != nil {
+        return err // It's better to return an error than to panic in a library
+    }
+
+    // Create accounts table
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS accounts (
+        uuid BINARY(16) PRIMARY KEY,
+        username VARCHAR(32) UNIQUE NOT NULL,
+        hash VARCHAR(64) NOT NULL,
+        salt BINARY(16) NOT NULL,
+        registered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        lastLoggedIn TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        lastActivity TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+    )`)
+    if err != nil {
+        tx.Rollback() // Rollback in case of error
+        return err
+    }
+
+    // Create sessions table
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS sessions (
+        token BINARY(32) PRIMARY KEY,
+        uuid BINARY(16) NOT NULL,
+        active BOOLEAN NOT NULL DEFAULT TRUE,
+        expire TIMESTAMP NOT NULL,
+        FOREIGN KEY (uuid) REFERENCES accounts(uuid) ON DELETE CASCADE
+    )`)
+    if err != nil {
+        tx.Rollback() // Rollback in case of error
+        return err
+    }
+
+    // Create accountStats table with all necessary columns
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS accountStats (
+        uuid BINARY(16) PRIMARY KEY,
+        playTime INT NOT NULL DEFAULT 0,
+        battles INT NOT NULL DEFAULT 0,
+        classicSessionsPlayed INT NOT NULL DEFAULT 0,
+        sessionsWon INT NOT NULL DEFAULT 0,
+        highestEndlessWave INT NOT NULL DEFAULT 0,
+        highestLevel INT NOT NULL DEFAULT 0,
+        pokemonSeen INT NOT NULL DEFAULT 0,
+        pokemonDefeated INT NOT NULL DEFAULT 0,
+        pokemonCaught INT NOT NULL DEFAULT 0,
+        pokemonHatched INT NOT NULL DEFAULT 0,
+        eggsPulled INT NOT NULL DEFAULT 0,
+        regularVouchers INT NOT NULL DEFAULT 0,
+        plusVouchers INT NOT NULL DEFAULT 0,
+        premiumVouchers INT NOT NULL DEFAULT 0,
+        goldenVouchers INT NOT NULL DEFAULT 0,
+        FOREIGN KEY (uuid) REFERENCES accounts(uuid) ON DELETE CASCADE
+    )`)
+    if err != nil {
+        tx.Rollback() // Rollback in case of error
+        return err
+    }
+
+    // Create accountCompensations table
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS accountCompensations (
+        uuid BINARY(16),
+        voucherType INT NOT NULL,
+        count INT NOT NULL DEFAULT 0,
+        claimed BOOLEAN NOT NULL DEFAULT FALSE,
+        PRIMARY KEY (uuid, voucherType),
+        FOREIGN KEY (uuid) REFERENCES accounts(uuid) ON DELETE CASCADE
+    )`)
+    if err != nil {
+        tx.Rollback() // Rollback in case of error
+        return err
+    }
+
+    // Commit the transaction
+    err = tx.Commit()
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func AddAccountRecord(uuid []byte, username string, key, salt []byte) error {
 	_, err := handle.Exec("INSERT INTO accounts (uuid, username, hash, salt, registered) VALUES (?, ?, ?, ?, UTC_TIMESTAMP())", uuid, username, key, salt)
 	if err != nil {

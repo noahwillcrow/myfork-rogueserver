@@ -53,3 +53,27 @@ func Init(username, password, protocol, address, database string) error {
 
 	return nil
 }
+
+func PrepareTables() error {
+	err := PrepareAccountTables()
+	if err != nil {
+		return fmt.Errorf("failed to prepare account tables: %s", err)
+	}
+
+	err = PrepareDailyTables()
+	if err != nil {
+		return fmt.Errorf("failed to prepare daily tables: %s", err)
+	}
+
+	err = PrepareGameTables()
+	if err != nil {
+		return fmt.Errorf("failed to prepare game tables: %s", err)
+	}
+
+	err = PrepareSaveDataTables()
+	if err != nil {
+		return fmt.Errorf("failed to prepare savedata tables: %s", err)
+	}
+
+	return nil
+}

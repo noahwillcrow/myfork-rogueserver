@@ -44,10 +44,6 @@ func main() {
 
 	flag.Parse()
 
-	log.Print("Received args: ", os.Args)
-	log.Printf("Debug: %v, Protocol: %s, Address: %s, DB User: %s, DB Password: %s, DB Protocol: %s, DB Address: %s, DB Name: %s",
-    *debug, *proto, *addr, *dbuser, *dbpass, *dbproto, *dbaddr, *dbname)
-
 	// register gob types
 	gob.Register([]interface{}{})
 	gob.Register(map[string]interface{}{})
@@ -56,6 +52,11 @@ func main() {
 	err := db.Init(*dbuser, *dbpass, *dbproto, *dbaddr, *dbname)
 	if err != nil {
 		log.Fatalf("failed to initialize database: %s", err)
+	}
+
+	err = db.PrepareTables()
+	if err != nil {
+		log.Fatalf("failed to prepare tables: %s", err)
 	}
 
 	// create listener

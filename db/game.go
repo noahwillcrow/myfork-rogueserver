@@ -17,6 +17,11 @@
 
 package db
 
+func PrepareGameTables() error {
+	// no tables are specific to this
+    return nil
+}
+
 func FetchPlayerCount() (int, error) {
 	var playerCount int
 	err := handle.QueryRow("SELECT COUNT(*) FROM accounts WHERE lastActivity > DATE_SUB(UTC_TIMESTAMP(), INTERVAL 5 MINUTE)").Scan(&playerCount)

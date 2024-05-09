@@ -24,6 +24,33 @@ import (
 	"github.com/noahwillcrow/myfork-rogueserver/defs"
 )
 
+func PrepareSaveDataTables() error {
+    tx, err := handle.Begin()
+    if err != nil {
+        return err
+    }
+
+    _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS dailyRunCompletions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        uuid BINARY(16) NOT NULL,
+        seed VARCHAR(255) NOT NULL,
+        mode INT NOT NULL,
+        timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY unique_completion (uuid, seed)
+    )`)
+    if err != nil {
+        tx.Rollback()
+        return err
+    }
+
+    err = tx.Commit()
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func TryAddDailyRunCompletion(uuid []byte, seed string, mode int) (bool, error) {
 	var count int
 	err := handle.QueryRow("SELECT COUNT(*) FROM dailyRunCompletions WHERE uuid = ? AND seed = ?", uuid, seed).Scan(&count)
