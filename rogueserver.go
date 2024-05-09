@@ -44,6 +44,7 @@ func main() {
 
 	flag.Parse()
 
+	log.Print("Received args: ", os.Args)
 	log.Printf("Debug: %v, Protocol: %s, Address: %s, DB User: %s, DB Password: %s, DB Protocol: %s, DB Address: %s, DB Name: %s",
     *debug, *proto, *addr, *dbuser, *dbpass, *dbproto, *dbaddr, *dbname)
 
