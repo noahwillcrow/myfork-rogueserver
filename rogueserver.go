@@ -44,6 +44,8 @@ func main() {
 
 	flag.Parse()
 
+	log.Printf("starting server with db addr %s", *dbaddr)
+
 	// register gob types
 	gob.Register([]interface{}{})
 	gob.Register(map[string]interface{}{})

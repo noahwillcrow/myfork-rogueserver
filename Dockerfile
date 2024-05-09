@@ -20,8 +20,6 @@ ARG MYSQL_DB_PROTOCOL=tcp
 ARG MYSQL_DB_ADDRESS=localhost:3306
 ARG MYSQL_DB_NAME=mysql
 
-RUN echo "MYSQL_DB_ADDRESS=$MYSQL_DB_ADDRESS"
-
 CMD ["/rogueserver",\
     "-debug", "$IS_DEBUG",\
     "-proto", "$PROTOCOL",\
