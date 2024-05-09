@@ -44,7 +44,7 @@ func main() {
 
 	flag.Parse()
 
-	log.Printf("Debug: %s, Protocol: %s, Address: %s, DB User: %s, DB Password: %s, DB Protocol: %s, DB Address: %s, DB Name: %s",
+	log.Printf("Debug: %v, Protocol: %s, Address: %s, DB User: %s, DB Password: %s, DB Protocol: %s, DB Address: %s, DB Name: %s",
     *debug, *proto, *addr, *dbuser, *dbpass, *dbproto, *dbaddr, *dbname)
 
 	// register gob types
