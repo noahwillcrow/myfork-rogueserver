@@ -70,6 +70,8 @@ func main() {
 	// init api
 	api.Init(mux)
 
+	log.Printf("rogueserver ready to start on %s://%s", *proto, *addr)
+
 	// start web server
 	if *debug {
 		err = http.Serve(listener, debugHandler(mux))
