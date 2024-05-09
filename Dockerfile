@@ -11,6 +11,9 @@ RUN go build -o /rogueserver
 
 USER 1000
 
+# Fix DNS issues with alpine
+ENV ENABLE_ALPINE_PRIVATE_NETWORKING=true
+
 # Load in arguments
 ARG IS_DEBUG=false
 ARG PROTOCOL=tcp
