@@ -28,8 +28,8 @@ import (
 	"github.com/noahwillcrow/myfork-rogueserver/db"
 )
 
-func Init(mux *http.ServeMux) {
-	scheduleStatRefresh()
+func Init(mux *http.ServeMux, statRefreshCronSpec string) {
+	scheduleStatRefresh(statRefreshCronSpec)
 	daily.Init()
 
 	// account

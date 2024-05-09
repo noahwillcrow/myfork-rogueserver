@@ -44,6 +44,8 @@ func main() {
 
 	allowedOrigins := flag.String("allowedorigins", "*", "CORS allowed origins")
 
+	statRefreshCronSpec := flag.String("statrefreshcronspec", "@hourly", "CRON spec for stat refresh job")
+
 	flag.Parse()
 
 	// register gob types
@@ -70,7 +72,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	// init api
-	api.Init(mux)
+	api.Init(mux, *statRefreshCronSpec)
 
 	log.Printf("rogueserver ready to start on %s://%s", *proto, *addr)
 

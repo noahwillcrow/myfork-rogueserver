@@ -32,8 +32,8 @@ var (
 	classicSessionCount int
 )
 
-func scheduleStatRefresh() {
-	scheduler.AddFunc("@every 30s", func() {
+func scheduleStatRefresh(spec string) {
+	scheduler.AddFunc(spec, func() {
 		err := updateStats()
 		if err != nil {
 			log.Printf("failed to update stats: %s", err)
