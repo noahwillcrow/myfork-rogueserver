@@ -35,7 +35,7 @@ func PrepareAccountTables() error {
     _, err = tx.Exec(`CREATE TABLE IF NOT EXISTS accounts (
         uuid BINARY(16) PRIMARY KEY,
         username VARCHAR(32) UNIQUE NOT NULL,
-        hash VARCHAR(64) NOT NULL,
+        hash BINARY(32) NOT NULL,
         salt BINARY(16) NOT NULL,
         registered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         lastLoggedIn TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
