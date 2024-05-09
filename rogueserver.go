@@ -122,17 +122,17 @@ func debugHandler(router *http.ServeMux) http.Handler {
 
 func standardRequestHandler(router *http.ServeMux, allowedOrigins string, passkey string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		if r.Header.Get("x-passkey") != passkey {
-			w.WriteHeader(http.StatusForbidden)
-		}
-
 		w.Header().Set("Access-Control-Allow-Headers", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "*")
 		w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
 
 		if r.Method == "OPTIONS" {
 			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		if r.Header.Get("x-passkey") != passkey {
+			w.WriteHeader(http.StatusForbidden)
 			return
 		}
 
