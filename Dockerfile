@@ -20,12 +20,12 @@ ARG MYSQL_DB_PROTOCOL=tcp
 ARG MYSQL_DB_ADDRESS=localhost:3306
 ARG MYSQL_DB_NAME=mysql
 
-CMD ["/rogueserver",\
-    "-debug", "$IS_DEBUG",\
-    "-proto", "$PROTOCOL",\
-    "-addr", "$ADDRESS",\
-    "-dbuser", "$MYSQL_DB_USERNAME",\
-    "-dbpass", "$MYSQL_DB_PASSWORD",\
-    "-dbproto", "$MYSQL_DB_PROTOCOL",\
-    "-dbaddr", "$MYSQL_DB_ADDRESS",\
-    "-dbname", "$MYSQL_DB_NAME"]
+CMD /rogueserver \
+    -debug $IS_DEBUG \
+    -proto $PROTOCOL \
+    -addr $ADDRESS \
+    -dbuser $MYSQL_DB_USERNAME \
+    -dbpass $MYSQL_DB_PASSWORD \
+    -dbproto $MYSQL_DB_PROTOCOL \
+    -dbaddr $MYSQL_DB_ADDRESS \
+    -dbname $MYSQL_DB_NAME
