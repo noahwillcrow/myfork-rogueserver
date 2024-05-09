@@ -42,6 +42,8 @@ func main() {
 	dbaddr := flag.String("dbaddr", "localhost", "database address")
 	dbname := flag.String("dbname", "pokeroguedb", "database name")
 
+	allowedOrigins := flag.String("allowedorigins", "*", "CORS allowed origins")
+
 	flag.Parse()
 
 	// register gob types
@@ -76,7 +78,7 @@ func main() {
 	if *debug {
 		err = http.Serve(listener, debugHandler(mux))
 	} else {
-		err = http.Serve(listener, mux)
+		err = http.Serve(listener, corsHandler(mux, *allowedOrigins))
 	}
 	if err != nil {
 		log.Fatalf("failed to create http server or server errored: %s", err)
@@ -105,6 +107,21 @@ func debugHandler(router *http.ServeMux) http.Handler {
 		w.Header().Set("Access-Control-Allow-Headers", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "*")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		router.ServeHTTP(w, r)
+	})
+}
+
+func corsHandler(router *http.ServeMux, allowedOrigins string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Allow-Origin", allowedOrigins)
 
 		if r.Method == "OPTIONS" {
 			w.WriteHeader(http.StatusOK)
