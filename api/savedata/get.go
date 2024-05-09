@@ -35,7 +35,7 @@ func Get(uuid []byte, datatype, slot int) (any, error) {
 
 		system, err := db.ReadSystemSaveData(uuid)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to read system save data: %s", err)
 		}
 
 		compensations, err := db.FetchAndClaimAccountCompensations(uuid)
@@ -55,7 +55,7 @@ func Get(uuid []byte, datatype, slot int) (any, error) {
 
 		session, err := db.ReadSessionSaveData(uuid, slot)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to read session save data: %s", err)
 		}
 
 		return session, nil

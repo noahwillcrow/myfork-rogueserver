@@ -37,6 +37,8 @@ func PrepareAccountTables() error {
         username VARCHAR(32) UNIQUE NOT NULL,
         hash BINARY(32) NOT NULL,
         salt BINARY(16) NOT NULL,
+		trainerId INT NULL,
+		secretId INT NULL,
         registered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         lastLoggedIn TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         lastActivity TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
