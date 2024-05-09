@@ -23,11 +23,11 @@ ARG MYSQL_DB_NAME=mysql
 RUN echo "MYSQL_DB_ADDRESS=$MYSQL_DB_ADDRESS"
 
 CMD ["/rogueserver",\
-    "--debug", "$IS_DEBUG",\
-    "--proto", "$PROTOCOL",\
-    "--addr", "$ADDRESS",\
-    "--dbuser", "$MYSQL_DB_USERNAME",\
-    "--dbpass", "$MYSQL_DB_PASSWORD",\
-    "--dbproto", "$MYSQL_DB_PROTOCOL",\
-    "--dbaddr", "$MYSQL_DB_ADDRESS",\
-    "--dbname", "$MYSQL_DB_NAME"]
+    "-debug", "$IS_DEBUG",\
+    "-proto", "$PROTOCOL",\
+    "-addr", "$ADDRESS",\
+    "-dbuser", "$MYSQL_DB_USERNAME",\
+    "-dbpass", "$MYSQL_DB_PASSWORD",\
+    "-dbproto", "$MYSQL_DB_PROTOCOL",\
+    "-dbaddr", "$MYSQL_DB_ADDRESS",\
+    "-dbname", "$MYSQL_DB_NAME"]
